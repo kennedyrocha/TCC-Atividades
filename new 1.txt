@@ -1,0 +1,26 @@
+1.
+Ethernet é uma arquitetura de interconexão para redes locais - Rede de Área Local (LAN) - baseada no envio de pacotes.
+Ela define cabeamento e sinais elétricos para a camada física, em formato de pacotes e protocolos para a subcamada de controle de acesso ao meio
+(Media Access Control - MAC) do modelo OSI.
+
+2.
+This clause defines the characteristics of the Reconciliation Sublayer (RS) and the Media Independent
+Interface between Ethernet media access controllers and various PHYs
+
+3.
+The XLGMII/CGMII has the following characteristics:
+a) The XLGMII supports a speed of 40 Gb/s.
+b) The CGMII supports a speed of 100 Gb/s.
+c) Data and delimiters are synchronous to a clock reference.
+d) It provides independent 64-bit wide transmit and receive data paths.
+e) It supports full duplex operation only.
+
+
+4. Falar do Algoritimo 
+
+5. Falar do MAC
+
+6.
+40 Gigabit Ethernet (40GbE) and 100 Gigabit Ethernet (100GbE) are groups of computer networking technologies for transmitting Ethernet frames at rates 
+of 40 and 100 gigabits per second (Gbit/s), respectively. The technology was first defined by the IEEE 802.3ba-2010 standard[1] and later by the 802.3bg-2011, 
+802.3bj-2014,[2] and 802.3bm-2015 standards.[3]

@@ -1,0 +1,44 @@
+\documentclass[a4paper,12pt]{article}
+
+\setlength{\parindent}{1.2cm}
+\setlength{\parskip}{.2cm}
+\setlength{\oddsidemargin}{0.5cm}    % Há um offset obrigatorio de
+\setlength{\evensidemargin}{0.0cm}   % 1 inch do lado esquerdo e no
+\setlength{\topmargin}{-1.2cm}       % topo da folha
+\setlength{\headsep}{1.0cm}
+\setlength{\textwidth}{15.5cm}
+\setlength{\textheight}{24.2cm}
+\renewcommand{\baselinestretch}{1.2}
+\renewcommand{\labelitemi}{\tiny{\textbullet}}
+\begin{document}
+
+\begin{center}
+\textbf{{\LARGE 100 GigaBit Ethernet}} \\ \vspace{0.5cm}
+\end{center}
+
+A Ethernet é um conjunto de normas e padrões de rede que define regras numa LAN (Local Internet Network) para a transmissão de dados, implementando o algorítimo CSMA/CD (Carrier Sense Multiple Access with Collision Detection) para acesso a dados com detecção de colisão e o MAC (Medium Access control) para controle de acesso ao meio. Ela surgiu quando Robert Metcalfe escreveu um memorando aos seus chefes descrevendo o petêncial dessa tecnologia para redes locais, logo após saiu da empresa onde trabalhava, porém conseguiu convencer a DEC (Digital Equitpment Corporation), Intel e Xerox a trabalharem juntas para promoverem a Ethernet como um padrão.
+
+Esse protocolo é atualmente padronizado pelo IEEE 802.3, um grupo de estudo pertencente ao IEEE (Institute of Eletrical and Electronics Engineers), cuja a responsabilidade é estudar e padronizar esse modelo de rede, tal qual atua na camada física e de enlace de dados no modelo OSI (Open Systems Interconnection). Os padrões são especificados por velocidade, ou seja, para cada velocidade há uma normalização.
+Dentro da camada física do Modelo OSI, a ethernet define padrões de cabeamento, disposítivos (switches e patch panels) e estruturas para que a velocidade desejada seja atingida.
+Já na camada de enlace, é usado um controlador de link lógico para destinar os dados de forma mais eficiente e também o MAC, para que cada dispositivo conectado a rede tenha um endereço único, evitando o envio e processamento desnecessário de informações.
+Para interligar essas duas camadas foi desenvolvido o reconciliador e cada norma tem um reconciliador específico, na 100 Gigabit Ethernet é recomendado o CGMII.
+Nesse âmbito, a 100 Gigabit, ou 100GE, é um conjunto de normas e tecnologias de rede para transmissão de dados numa velocidade de 100 Gb/s (IEEE Computer Society (2018)).
+
+
+Nesse padrão, inicialmente é determinada as especificações da camada física para a transmissão desses dados, ao qual é divida em subcamadas, são elas: Physical Coding Sublayer (PCS), Forward Error Correction (FEC), Physical Medium Attachment (PMA), Physical Medium Dependent (PMD) e Menagement Interface.
+
+A implementação dessa camada, na 100 Gigabit Ethernet, é dada através do 100GBASE-R ou 100GBASE-X, que á a familia de dispositivos que trabalha na velocidade de 100 Gb/s, sendo que este usa a codificação PCS com scrambled (64B/66B), enquanto aquele usa codificação External Sourced (4B/5B, 8B/10B).
+
+A primeira subcamada física (PCS) prove o serviço de codificação/decodificação dos dados em blocos de 66bit (64B/66B), é responsável por distribuir os dados em diferentes faixas, realizar o \textit{scramble} dos blocos de bits, compensação de diferença de taxas entre o reconciliador e o PMA e determina quando uma conexão foi estabelecida e informa ao gerenciador quando o dispositivo está pronto para uso. 
+
+Já na segunda subcamada física o FEC (Foward Error Correction) age com o objetivo de avitar a perca de dados através da redundância no envio de bits, onde ele faz a mesma adicionando bits ao streaming de dados pelo algorítimo Reed-Salomon, sendo assim nomeado como RS-FEC (Reed Solomon Forward Error Correction).  Em cada especificação ele trabalha de uma forma e, para ser compatível com a 100GE, é nececessário que o PMA tenha 4 faixas para envio e outras quatro para recebimento, enfatizando então o requerido na 100GE, que é o modo de operaçao full duplex e oito faixas para transmissão de dados.
+
+
+Na terceira subcamada o PMA (Physical Meidium Attachment) fornece serviço de intermediamento entre um PMA e um cliente, podendo esse cliente ser um PCS, FEC ou outro próprio PMA. Entre esses serviços têm-se a adaptação dos sinais das faixas dos PCS para o número de faixas físicas ou abstratas do cliente, ou seja, ele pode receber 10 faixas de streaming de dados e transforma-lá em 4 faixas de stram de dados. Também provê especificações de tempo tempo pra transmissão dos dados entre a faixas assim como gerenciamento dos mesmos. O PMA faz o direcionamento de bits de dados para que todos os bits de uma stream vão e voltem pela mesma faixa. Como o PMA possui faixas de transmissão para prover tais serviços, há também uma padronização para tais faixas, onde o 802.3 define que o número de faixas do PMA sempre é divisor do número de faixas do PCS, então para suportar a 100GBASE-R é necessário que o PMA tenha 20 PCSLs. Ainda na segunda camada, quando há a comunicação entre dois PMAs pode-se usar a instanciação CAIU-10 ou CAIU-4, onde a CAIU-10 é o uso de dez faixas a 10.3125 GBd e a CAIU-4 é o uso de quatro faixas a 25.78125 GBd.
+
+
+
+falar da camada fisica, aspectos gerais, depois especificar as familias, para que cada uma serve
+
+Falar sobre full duplex operação e que a 100 gigabit só transmite na fibra optica
+\end{document}
