@@ -37,9 +37,12 @@ Já na segunda subcamada física o FEC (Foward Error Correction) age com o objet
 A terceira subcamada, o PMA (Physical Meidium Attachment), fornece o serviço de intermediamento entre um PMA e um cliente, podendo esse cliente ser um PCS, FEC ou outro próprio PMA. Entre esses serviços têm-se a adaptação dos sinais das faixas dos PCS para o número de faixas físicas ou abstratas do cliente, ou seja, ele pode receber 10 faixas de stream de dados e transforma-lá em 4 faixas de stream de dados. Também provê especificações de tempo tempo pra transmissão dos dados entre a faixas assim como gerenciamento dos mesmos. O PMA faz o direcionamento de bits de dados para que todos os bits de uma stream vão e voltem pela mesma faixa. Como o PMA possui faixas de transmissão para prover tais serviços, há também uma padronização para tais faixas, onde o 802.3 define que o número de faixas do PMA sempre é divisor do número de faixas do PCS, então para suportar a 100GBASE-R é necessário que o PMA tenha 20 PCSLs. Ainda na segunda camada, quando há a comunicação entre dois PMAs pode-se usar a instanciação CAIU-10 ou CAIU-4, onde a CAIU-10 é o uso de dez faixas a 10.3125 GBd e a CAIU-4 é o uso de quatro faixas a 25.78125 GBd.
 
 
+1 - Traduz o dado codificado para o meio especificado.
+2 - Transmissão e recebimento de dados
+3 - Define implementações (Single-Mode, MultiMode, Cooper Cable)
+4 - Define tipos de cabos, contrução de associação e canal de conexão
 
 falar da camada fisica, aspectos gerais, depois especificar as familias, para que cada uma serve
 
 Falar sobre full duplex operação e que a 100 gigabit só transmite na fibra optica
-asas
 \end{document}
