@@ -41,5 +41,20 @@ A quarta subcamada (PMD) provê o serviço de intermédio entre o PMA e o MDI co
 
 Relacionado ao PMD, tem-se ainda o MDI (Medium Dependent Interface), que é a interface de comunicação entre o dispositivo PMD e o Medium, podendo o Medium ser entendido como meio de comunicação (fibra ótica, cabo de cobre, backplane). Essa interface pode ser compreendida de outro modo como o receptor e/ou transmissor acoplado ao dispositivo PMD, e varia conforme a normativa, sendo que na 100GBASE-SR10 é apresentada três opções de implementação e a recomendada é a que há dez faixas para transmissão e outras dez para recepção (IEEE Standards for Ethernet (2018) - Figura 86-7).
 
+Já na camada de enlace, tem-se também as divisões de especificações e como principais entidades há o LLC (Logical Link Control), o MAC (Media Access Control) e também o MAC Control, que na implementação da 100GE é opcional.
+
+Entre as entidades, inicialmente há o MAC, que provê o serviço de transferência de dados entre MACs, onde sua semântica de transferência é constituda de: endereço de destino (que pode ser um MAC ou um grupo), endereço de origem , unidade de serviço de dados MAC e sequência de checagem de frame e, essa semantica especificada, refere-se a premissa MA\underline{\hspace*{0.14in}}DATA.request. Quando há a implementação do controle de MAC, há também a recepção de status, que é usado para informar ao cliente MAC a vinda de um frame, e esta se trata da premissa MA\underline{\hspace*{0.14in}}DATA.indication.
+
+1 - Funcionalidades foram adicionadas ao MAC frame e hoje há mais de um tipo de frame;
+
+2 - Os tratados são (Frame básico, Q-tagged frame, envelope frame);
+
+3 - Todos os três tipo usam o mesmo formato.
+
+4 - Um frame é encapsulado num pacote (mostrar o datagrama);
+
+5 - Explicar cada campo do pacote e frame conforme item 3.2
+
+6 - Explicar as diferenças entre os tipos de frames.
 
 \end{document}
