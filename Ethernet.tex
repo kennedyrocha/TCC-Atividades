@@ -49,7 +49,7 @@ Já na camada de enlace, tem-se também as divisões de especificações e como 
 
 Entre as entidades, inicialmente há o MAC, que provê o serviço de transferência de dados entre MACs, onde sua semântica de transferência é constituda de: endereço de destino (que pode ser um MAC ou um grupo), endereço de origem , unidade de serviço de dados MAC e sequência de checagem de frame e, essa semantica especificada, refere-se a premissa MA\underline{\hspace*{0.14in}}DATA.request. Quando há a implementação do controle de MAC, há também a recepção de status, que é usado para informar ao cliente MAC a vinda de um frame, e esta se trata da premissa MA\underline{\hspace*{0.14in}}DATA.indication.
 
-Tais semânticas trabalham através de frames e pacotes e, durante os anos, foram adicionados mais capacidades ao encapsulamento desses frames e como consequência há mais de um tipo de frame ,todos utilizando o mesmo fomarto de frame Ethernet e o 802.3 padroniza três deles: o básico, o Q-tagged e o envelope. Tal frame é encapsulado num pacote e cada elemento é especificado conforme a tabela abaixo:
+Tais semânticas trabalham através de frames e pacotes e, durante os anos, foram adicionados mais capacidades ao encapsulamento desses frames e como consequência há mais de um tipo de frame ,todos utilizando o mesmo fomarto de frame Ethernet e o 802.3 padroniza três deles: o básico, o Q-tagged e o envelope. Tal frame é encapsulado num pacote pelo MAC e cada elemento é especificado conforme a tabela abaixo:
 
 \begin{center}
 	\begin{table}[h!]
@@ -75,7 +75,10 @@ Tais semânticas trabalham através de frames e pacotes e, durante os anos, fora
 	\end{table}
 	
 \end{center}
-teste
+
+O primeiro elemento (preâmbulo), ajuda na sincronização do PLS com o tempo do pacote e serve para avisar que um frame está a caminho. O SFD é a sequência de dados fixada (10101011) que antecede o frame, ou seja, depois dela o receptor saberá que será os bits do frame. Os campos de endereço possuem 48 bits cada, e o endereço de destino pode ser um MAC unico, um grupo ou todos os endereços da LAN. Se o primeiro bit for 0, significa que se refere a um endereço (unicast), se for 1 segnifica que que é mais de um endereço (multicast ou broadcast), enquando o segundo bit (do endereço destino) irá dizer se o endereço é administrado localmente ou globalmente. Para o broadcast, todos os bits do elemento devem ser 1. O campo de Tamanho / Tipo possui dois significados, se for menor ou igual a 1500 indica o número de bytes dentro do próximo campo (Dados Cliente MAC), se estiver entre 1501 e 1536 então indica o Ethertype do protocolo do cliente MAC.
+
+No campo de dados do cliente MAC, há os dados a serem trasmitidos e a implementação deve suportar no mínimo os tamanhos de dados de 1500 Bytes (frame básico), 1504 Bytes (frame q-tagged) e 1982 Bytes (frame envelope).
 
 
 
