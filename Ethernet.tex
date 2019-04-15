@@ -1,5 +1,9 @@
 \documentclass[a4paper,12pt]{article}
 
+\usepackage{multirow}
+\usepackage{rotating}
+\usepackage{caption}
+
 \setlength{\parindent}{1.2cm}
 \setlength{\parskip}{.2cm}
 \setlength{\oddsidemargin}{0.5cm}    % Há um offset obrigatorio de
@@ -45,16 +49,34 @@ Já na camada de enlace, tem-se também as divisões de especificações e como 
 
 Entre as entidades, inicialmente há o MAC, que provê o serviço de transferência de dados entre MACs, onde sua semântica de transferência é constituda de: endereço de destino (que pode ser um MAC ou um grupo), endereço de origem , unidade de serviço de dados MAC e sequência de checagem de frame e, essa semantica especificada, refere-se a premissa MA\underline{\hspace*{0.14in}}DATA.request. Quando há a implementação do controle de MAC, há também a recepção de status, que é usado para informar ao cliente MAC a vinda de um frame, e esta se trata da premissa MA\underline{\hspace*{0.14in}}DATA.indication.
 
-1 - Funcionalidades foram adicionadas ao MAC frame e hoje há mais de um tipo de frame;
+Tais semânticas trabalham através de frames e pacotes e, durante os anos, foram adicionados mais capacidades ao encapsulamento desses frames e como consequência há mais de um tipo de frame ,todos utilizando o mesmo fomarto de frame Ethernet e o 802.3 padroniza três deles: o básico, o Q-tagged e o envelope. Tal frame é encapsulado num pacote e cada elemento é especificado conforme a tabela abaixo:
 
-2 - Os tratados são (Frame básico, Q-tagged frame, envelope frame);
+\begin{center}
+	\begin{table}[h!]
+	\centering
+		\begin{tabular}{ | c | c | c | c | }
+			\hline
+			\multicolumn{2}{| c |}{} & Quantidade de Bytes & Campo \\
+			\hline
+			\multirow{8}{*}{\begin{sideways}\parbox{2cm}{\centering Pacote}\end{sideways}}
+				& & 7 Bytes & Preâmbulo \\ \cline{3-4}
+				& & 1 Byte & SDF \\ \cline{2-4}
+				& \multirow{6}{*}{\begin{sideways}\parbox{2cm}{\centering Frame}\end{sideways}}
+					& 6 Bytes & Endereço de Destino \\ \cline{3-4}
+					& & 6 Bytes & Endereço de Origem \\ \cline{3-4}
+					& & 2 Bytes & Tamanho / Tipo \\ \cline{3-4}
+					& & 46 a (1500 ou 1504 ou 1982) Bytes & Dados Cliente MAC \\ \cline{3-4}
+					& & 4 Bytes & Sequência de checagem de frame \\ \cline{3-4}
+			\hline	
+		\end{tabular}
+		\centering
+		\captionsetup{labelformat=empty} 
+		\caption{Formato de Frame e Pacote Ethernet}
+	\end{table}
+	
+\end{center}
+teste
 
-3 - Todos os três tipo usam o mesmo formato.
 
-4 - Um frame é encapsulado num pacote (mostrar o datagrama);
-
-5 - Explicar cada campo do pacote e frame conforme item 3.2
-
-6 - Explicar as diferenças entre os tipos de frames.
 
 \end{document}
