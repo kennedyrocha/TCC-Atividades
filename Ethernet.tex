@@ -20,7 +20,7 @@
 \textbf{{\LARGE 100 GigaBit Ethernet}} \\ \vspace{0.5cm}
 \end{center}
 
-A Ethernet é um conjunto de normas e padrões de rede que define regras numa LAN (Local Internet Network) para a transmissão de dados, implementando o algorítimo CSMA/CD (Carrier Sense Multiple Access with Collision Detection) para acesso a dados com detecção de colisão e o MAC (Medium Access control) para controle de acesso ao meio. Ela surgiu quando Robert Metcalfe escreveu um memorando aos seus chefes descrevendo o potencial dessa tecnologia para redes locais, logo após saiu da empresa onde trabalhava (Xerox), porém conseguiu convencer a DEC (Digital Equitpment Corporation), Intel e Xerox a trabalharem juntas para promoverem a Ethernet como um padrão.
+A Ethernet é um conjunto de normas e padrões de rede que define regras numa LAN (Local Internet Network) para a transmissão de dados, implementando o algorítmo CSMA/CD (Carrier Sense Multiple Access with Collision Detection) para acesso a dados com detecção de colisão e o MAC (Medium Access control) para controle de acesso ao meio. Ela surgiu quando Robert Metcalfe escreveu um memorando aos seus chefes descrevendo o potencial dessa tecnologia para redes locais, logo após saiu da empresa onde trabalhava (Xerox), porém conseguiu convencer a DEC (Digital Equitpment Corporation), Intel e Xerox a trabalharem juntas para promoverem a Ethernet como um padrão.
 
 Esse protocolo é atualmente padronizado pelo IEEE 802.3, um grupo de estudo pertencente ao IEEE (Institute of Eletrical and Electronics Engineers), cuja a responsabilidade é estudar e padronizar esse modelo de rede, tal qual atua na camada física e de enlace de dados no modelo OSI (Open Systems Interconnection). Os padrões são especificados por velocidade, ou seja, para cada velocidade há uma normalização.
 Dentro da camada física do Modelo OSI, a ethernet define padrões de cabeamento, dispositivos (switches e patch panels) e estruturas para que a velocidade desejada seja atingida.
@@ -45,7 +45,7 @@ A quarta subcamada (PMD) provê o serviço de intermédio entre o PMA e o MDI co
 
 Relacionado ao PMD, tem-se ainda o MDI (Medium Dependent Interface), que é a interface de comunicação entre o dispositivo PMD e o Medium, podendo o Medium ser entendido como meio de comunicação (fibra ótica, cabo de cobre, backplane). Essa interface pode ser compreendida de outro modo como o receptor e/ou transmissor acoplado ao dispositivo PMD, e varia conforme a normativa, sendo que na 100GBASE-SR10 é apresentada três opções de implementação e a recomendada é a que há dez faixas para transmissão e outras dez para recepção (IEEE Standards for Ethernet (2018) - Figura 86-7).
 
-Já na camada de enlace, tem-se também as divisões de especificações e como principais entidades há o LLC (Logical Link Control), o MAC (Media Access Control) e também o MAC Control, que na implementação da 100GE é opcional.
+Já na camada de enlace, tem-se também as divisões de especificações e como principais entidades há o LLC (Logical Link Control), o MAC (Media Access Control) e também o MAC Control, que na implementação da 100GE não é necessário.
 
 Entre as entidades, inicialmente há o MAC, que provê o serviço de transferência de dados entre MACs, onde sua semântica de transferência é constituda de: endereço de destino (que pode ser um MAC ou um grupo), endereço de origem , unidade de serviço de dados MAC e sequência de checagem de frame e, essa semantica especificada, refere-se a premissa MA\underline{\hspace*{0.14in}}DATA.request. Quando há a implementação do controle de MAC, há também a recepção de status, que é usado para informar ao cliente MAC a vinda de um frame, e esta se trata da premissa MA\underline{\hspace*{0.14in}}DATA.indication.
 
@@ -58,15 +58,18 @@ Tais semânticas trabalham através de frames e pacotes e, durante os anos, fora
 			\hline
 			\multicolumn{2}{| c |}{} & Quantidade de Bytes & Campo \\
 			\hline
-			\multirow{8}{*}{\begin{sideways}\parbox{2cm}{\centering Pacote}\end{sideways}}
+			\multirow{10}{*}{\begin{sideways}\parbox{2cm}{\centering Pacote}\end{sideways}}
 				& & 7 Bytes & Preâmbulo \\ \cline{3-4}
 				& & 1 Byte & SDF \\ \cline{2-4}
-				& \multirow{6}{*}{\begin{sideways}\parbox{2cm}{\centering Frame}\end{sideways}}
+				& \multirow{7}{*}{\begin{sideways}\parbox{2cm}{\centering Frame}\end{sideways}}
 					& 6 Bytes & Endereço de Destino \\ \cline{3-4}
 					& & 6 Bytes & Endereço de Origem \\ \cline{3-4}
 					& & 2 Bytes & Tamanho / Tipo \\ \cline{3-4}
-					& & 46 a (1500 ou 1504 ou 1982) Bytes & Dados Cliente MAC \\ \cline{3-4}
-					& & 4 Bytes & Sequência de checagem de frame \\ \cline{3-4}
+					& & \multirow{2}{*}{46 a (1500 ou 1504 ou 1982) Bytes}
+					& Dados Cliente MAC /\\
+					& & & Pad (Opcional) \\ \cline{3-4}
+					& & 4 Bytes & Sequência de checagem de frame \\ \cline{2-4}
+					& & 4 Bytes & Extensão \\
 			\hline	
 		\end{tabular}
 		\centering
@@ -78,8 +81,10 @@ Tais semânticas trabalham através de frames e pacotes e, durante os anos, fora
 
 O primeiro elemento (preâmbulo), ajuda na sincronização do PLS com o tempo do pacote e serve para avisar que um frame está a caminho. O SFD é a sequência de dados fixada (10101011) que antecede o frame, ou seja, depois dela o receptor saberá que será os bits do frame. Os campos de endereço possuem 48 bits cada, e o endereço de destino pode ser um MAC unico, um grupo ou todos os endereços da LAN. Se o primeiro bit for 0, significa que se refere a um endereço (unicast), se for 1 segnifica que que é mais de um endereço (multicast ou broadcast), enquando o segundo bit (do endereço destino) irá dizer se o endereço é administrado localmente ou globalmente. Para o broadcast, todos os bits do elemento devem ser 1. O campo de Tamanho / Tipo possui dois significados, se for menor ou igual a 1500 indica o número de bytes dentro do próximo campo (Dados Cliente MAC), se estiver entre 1501 e 1536 então indica o Ethertype do protocolo do cliente MAC.
 
-No campo de dados do cliente MAC, há os dados a serem trasmitidos e a implementação deve suportar no mínimo os tamanhos de dados de 1500 Bytes (frame básico), 1504 Bytes (frame q-tagged) e 1982 Bytes (frame envelope).
+No campo de dados do cliente MAC, há os dados a serem trasmitidos e a implementação deve suportar no mínimo os tamanhos de dados de 1500 Bytes (frame básico), 1504 Bytes (frame q-tagged) e 1982 Bytes (frame envelope). Já o elemento Pad é utilizado quando o campo de dados não atingem o número mínimo de 48 bytes, ou seja, ele é a adição de dados ao campo para que o frame não seja eleminado no futuro como um frame com quantidade de dados insuficiente. A sequência de checagem de frame (FCS) é utilizada para validação do frame e é gerada a partir de dos dados do mesmo para que haja detecção de erro no recebimento, ou seja, se o calculo da sequência no recebimento for diferente do FCS recebido, significa que o frame está errado. O ultimo campo (Extensão) é usado para slotTime e serve apenas para que o frame tenha o tamanho mínimo exigido em implementações de baixa velocidade, não sendo necesseário a partir da 10GE e também não entra no calculo do FCS.
 
+Depois de encapsulado, o frame é enviado e na recepção é considerado inválido quando: seu tamanho é incodizente com o especificado no elemento de tamanho/tipo; se o frame não possuir a quantidade de bits multipla de 8, pois deve ser uma cadeia de bytes; ou o FCS calculado não coincidir com o valor FEC recebido.
 
+O MAC Control não se faz necessário na 100GE pois essa funcionalidade usa o algoritimo CSMA/CD (Carrier Sense Multiple Access with Collision Detection). Tal algorimo não é util na 100GE pois ela opera semente em modo \textit{full duplex}, logo não risco de colisão de dados.
 
 \end{document}
