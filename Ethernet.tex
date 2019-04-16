@@ -85,6 +85,8 @@ No campo de dados do cliente MAC, há os dados a serem trasmitidos e a implement
 
 Depois de encapsulado, o frame é enviado e na recepção é considerado inválido quando: seu tamanho é incodizente com o especificado no elemento de tamanho/tipo; se o frame não possuir a quantidade de bits multipla de 8, pois deve ser uma cadeia de bytes; ou o FCS calculado não coincidir com o valor FEC recebido.
 
-O MAC Control não se faz necessário na 100GE pois essa funcionalidade usa o algoritimo CSMA/CD (Carrier Sense Multiple Access with Collision Detection). Tal algorimo não é util na 100GE pois ela opera semente em modo \textit{full duplex}, logo não risco de colisão de dados.
+O MAC Control com CSMA/CD não se faz necessário na 100GE pois essa funcionalidade usa o algoritimo CSMA/CD (Carrier Sense Multiple Access with Collision Detection). Tal algorimo não é util na 100GE pois ela opera semente em modo \textit{full duplex}, logo não risco de colisão de dados.
+
+Ainda na camada de enlace, porém acima do MAC, tem-se o LLC (Logical Link Controller) que facilita, através de mecanismos de multiplexação e demultiplexação, o transito e coexistência de vários pacotes num meio de rede com vários pontos. Isso é possível pois ele guarda o endereço de cada MAC dentro da rede e faz todos se enxergarem como um, ou seja, enquanto o MAC guarda a informação dos dados e dispositivos para mostrar a origem e destino do pacote, o LLC mostra o melhor caminho a ser percorrido para que esse pacote chegar ao objetivo. Tal funcionalidade é exemplicada no serviço provido pelos equipamentos chamados Switches.
 
 \end{document}
