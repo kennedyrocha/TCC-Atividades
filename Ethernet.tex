@@ -92,4 +92,33 @@ Esses conceitos tecnológicos (PHY, MAC e LLD) se referem as duas primeiras cama
 
 Em suma, o RS converte a stream de dados dada pelo MAC para dados (sinais) paralelos do CGMII e também o mapeamento dos sinais providos pelo CGMII para as primitivas do MAC, já CGMII é o facilitador de transmissão e recebimento de dados entre o RS e o PHY.
 
+%corrigir a partir daqui
+Todas essas definições são padronizadas pela IEEE para a 100GE e vários fatores foram essenciais para o alcance de tal velocidade, isso fica claro ao comparar-lo com outros padrões como 10GE, 25GE e 400GE, sendo eles conjuntos de normas para a velocidade, respectivamente, de 10 Gb/s, 25 Gb/s e 400 Gb/s,  todos eles definidos pelo grupo 802.3.
+
+\begin{center}
+	\begin{table}[h!]
+	\centering
+		\begin{tabular}{ | c | c | c | c | c | }
+			\hline
+			& \multirow{2}{*}{10GE} & \multirow{2}{*}{25GE} & \multirow{2}{*}{100GE} & \multirow{2}{*}{400GE} \\
+			& & & & \\
+			\hline
+			Bloco de dados no RS (bits) & 32 & 32 & 64 & 64 \\
+			\hline
+			Faixas & 1 & 1 & 4 ou 10 & 16 \\
+			\hline
+			\multirow{2}{*}{Velocidade por faixa (Gb/s)} & \multirow{2}{*}{10} & \multirow{2}{*}{25} &  25 para 4 faixas & \multirow{2}{*}{25} \\
+			& & & ou 10 para 10 faixas & \\
+			\hline
+		\end{tabular}
+		\centering
+		\captionsetup{labelformat=empty} 
+		\caption{Especificações de Normas 802.3}
+	\end{table}
+	
+\end{center}
+
+O primeiro dado se refere aos blocos de bits transmitidos através do RS, a qual se observa um aumento para o dobro do tamanho, a importância desse item é visto quando calcula-se a velocidade de transmissão com 10 faixas transmitindo a 156,25 Mhz:
+$10(faixas) \times 64(bits) \times 156,25 = 100 (Gb/s)$.
+
 \end{document}
