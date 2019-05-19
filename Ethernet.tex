@@ -47,7 +47,7 @@ Relacionado ao PMD, tem-se ainda o MDI (Medium Dependent Interface), que é a in
 Já na camada de enlace, tem-se também as divisões de especificações e como principais entidades há o LLC (Logical Link Control), o MAC (Media Access Control) e também o MAC Control, que na implementação da 100GE não é necessário.
 
 Entre as entidades, inicialmente há o MAC, que provê o serviço de transferência de dados entre MACs, onde sua semântica de transferência é constituída de: endereço de destino (que pode ser um MAC ou um grupo), endereço de origem, unidade de serviço de dados MAC e sequência de checagem de frame.
-Tais semânticas trabalham através de frames e pacotes e, durante os anos, foram adicionados mais capacidades ao encapsulamento desses frames e como consequência há mais de um tipo de frame, todos utilizando o mesmo fomarto de frame Ethernet e o 802.3 padroniza três deles: o básico, o Q-tagged e o envelope. Tal frame é encapsulado num pacote pelo MAC e cada elemento é especificado conforme a tabela abaixo:
+Tais semânticas trabalham através de frames e pacotes sendo os frames encapsulados em pacotes pelo MAC e cada elemento é especificado conforme a tabela abaixo:
 
 \begin{center}
 	\begin{table}[h!]
@@ -56,18 +56,16 @@ Tais semânticas trabalham através de frames e pacotes e, durante os anos, fora
 			\hline
 			\multicolumn{2}{| c |}{} & Quantidade de Bytes & Campo \\
 			\hline
-			\multirow{10}{*}{\begin{sideways}\parbox{2cm}{\centering Pacote}\end{sideways}}
+			\multirow{9}{*}{\begin{sideways}\parbox{2cm}{\centering Pacote}\end{sideways}}
 				& & 7 Bytes & Preâmbulo \\ \cline{3-4}
 				& & 1 Byte & SDF \\ \cline{2-4}
 				& \multirow{7}{*}{\begin{sideways}\parbox{2cm}{\centering Frame}\end{sideways}}
 					& 6 Bytes & Endereço de Destino \\ \cline{3-4}
 					& & 6 Bytes & Endereço de Origem \\ \cline{3-4}
-					& & 2 Bytes & Tamanho / Tipo \\ \cline{3-4}
-					& & \multirow{2}{*}{46 a (1500 ou 1504 ou 1982) Bytes}
-					& Dados Cliente MAC (PayLoad) /\\
-					& & & Pad (Opcional) \\ \cline{3-4}
+					& & 2 Bytes & Tamanho \\ \cline{3-4}
+					& & \multirow{2}{*}{46 a 1500 Bytes} & \multirow{2}{*}{Dados Cliente MAC (PayLoad)}\\
+					& & & \\ \cline{3-4}
 					& & 4 Bytes & Sequência de checagem de frame \\ \cline{2-4}
-					& & 4 Bytes & Extensão \\
 			\hline	
 		\end{tabular}
 		\centering
@@ -77,12 +75,12 @@ Tais semânticas trabalham através de frames e pacotes e, durante os anos, fora
 	
 \end{center}
 
-O primeiro elemento (preâmbulo), ajuda na sincronização do PLS com o tempo do pacote e serve para avisar que um frame está a caminho. O SFD é a sequência de dados fixada (10101011) que antecede o frame, ou seja, depois dela o receptor saberá que será os bits do frame. Os campos de endereço possuem 48 bits cada, e o endereço de destino pode ser um MAC unico, um grupo ou todos os endereços da LAN. O campo de Tamanho / Tipo possui dois significados, se for menor ou igual a 1500 indica o número de bytes dentro do próximo campo (Dados Cliente MAC), se estiver entre 1501 e 1536 então indica o Ethertype do protocolo do cliente MAC.
+O primeiro elemento (preâmbulo), ajuda na sincronização do PLS com o tempo do pacote e serve para avisar que um frame está a caminho. O SFD é a sequência de dados fixada (10101011) que antecede o frame, ou seja, depois dela o receptor saberá que será os bits do frame. Os campos de endereço possuem 48 bits cada, e o endereço de destino pode ser um MAC unico, um grupo ou todos os endereços da LAN. O campo de Tamanho indica o número de bytes dentro do próximo campo (Dados Cliente MAC).
 
-No campo de dados do cliente MAC, há os dados a serem transmitidos e a implementação deve suportar no mínimo os tamanhos de dados de 1500 Bytes (frame básico), 1504 Bytes (frame q-tagged) e 1982 Bytes (frame envelope). Já o elemento Pad é utilizado quando o campo de dados não atingem o número mínimo de 48 bytes, ou seja, ele é a adição de dados ao campo para que o frame não seja eliminado no futuro como um frame com quantidade de dados insuficiente. A sequência de checagem de frame (FCS) é utilizada para validação do frame e é gerada a partir de dos dados do mesmo para que haja detecção de erro no recebimento, ou seja, se o calculo da sequência no recebimento for diferente do FCS recebido, significa que o frame está errado. O último campo (Extensão) não é necesseário a partir da 10GE e também não entra no calculo do FCS.
+No campo de dados do cliente MAC, há os dados a serem transmitidos e bits de dados são adicionados ao campo para que o frame não seja eliminado no futuro como um frame com quantidade de dados insuficiente, que é de 48 bytes. A sequência de checagem de frame (FCS) é utilizada para validação do frame e é gerada a partir de dos dados do mesmo para que haja detecção de erro no recebimento, ou seja, se o calculo da sequência no recebimento for diferente do FCS recebido, significa que o frame está errado.
 
 
-Depois de encapsulado, o frame é enviado e na recepção é considerado inválido quando: seu tamanho é incondizente com o especificado no elemento de tamanho/tipo; se o frame não possuir a quantidade de bits múltipla de 8, pois deve ser uma cadeia de bytes; ou o FCS calculado não coincidir com o valor FEC recebido.
+Depois de encapsulado, o frame é enviado e na recepção é considerado inválido quando: seu tamanho é incondizente com o especificado no elemento de tamanho; se o frame não possuir a quantidade de bits múltipla de 8, pois deve ser uma cadeia de bytes; ou o FCS calculado não coincidir com o valor FEC recebido.
 
 O MAC Control com CSMA/CD não se faz necessário na 100GE pois essa funcionalidade usa o algoritimo CSMA/CD (Carrier Sense Multiple Access with Collision Detection). Tal algorimo não é util na 100GE visto que ela opera semente em modo \textit{full duplex}, logo não risco de colisão de dados.
 
@@ -124,5 +122,16 @@ $10(faixas) \times 64(bits) \times 156,25 = 100 (Gb/s)$.
 Na segunda têm-se a quantidade de faixas e a velocidade por faixa. Inicialmente, em 2010, a 100GE foi padronizada com 10 faixas operando a 10 Gb/s por segundo, logo após, em 2014, a 802.3 iniciou uma força tarefa para alcançar a velocidade de 25 Gb/s de transmissão numa única faixa, tal objetivo foi atingido em 2016 quando foi aprovado tal padrão. A partir dai também foi normalizado a 25GE com uma faixa 25 Gb/s, 100GE com 4 faixas a 25 Gb/s, 200GE com 8 faixas a 25 Gb/s e a 400GE com 16 faixas a 25 Gb/s.
 
 O conjunto de evolução de vários elementos como cabeamentos óticos (OM3, OM4 e OM5), cabos coaxiais, capacidade de processamento dos hardwares e aumento da demanda de dados a serem transmitidos foram responsáveis pelo avanço da ethernet e foi elencado dois principais, onde observa-se grande impacto dos mesmos no crescimento da ethnert e anda mais estudos estão sendo feitos para que velocidades de 1,2 Tb/s e 800 Gb/s sejam alcançadas.
+
+Além da ethernet, há padrões de rede de alta performace como Enoc, Infiniband e Omni Path, que visam a transmissão de dados tanto para armazenamento quanto para processamento.
+
+A Enoc (Rede em Chip Expansível) é uma topologia de rede sugerida por Ivan Luiz Pedroso (2018), que permite comunicação de elementos de processamento de um chip, porém esse diálogo pode se dar tanto de elementos num chip (Intra-Chip) quanto com elementos em outro chip (Inter-Chip).
+
+Na camada física, essa rede é composta por elementos de processamento(PE), Ligações metálicas, buffers e reteadores, todos eles dentro de um chip. Tais membros são dispostos numa malha bidimencional onde os PEs possuem buffers para armazenar suas mensagens e esses PEs são ligados a um roteador, ou seja, há um roteador para cada PE e os roteadores são também ligados a outros quatro roteadores a sua volta. Um desses roteadores é ligado a um hub sem fio e o mesmo faz comunicação com outro hub sem fio em outro chip.
+
+Na camada de enlace de dados, ela trabalha com roteadores, hubs e pacotes dividos em flits de 32 bits. Os pacotes são dividos e reconstruidos dentro dos PEs e enviados através dos roteadores, que possuem comunicação em bararmento full duplex. Quando o destinatário for outro chip, o flit é encaminhado ao hub sem fio através dos roteadores, que envia o mesmo para o hub do chip de destino. O pacote é divito em 4 bytes para endereço de destino e origem, 4 a 1500 bytes para os dados a serem transmitidos (PayLoad), por fim um flit repetindo o ultimo flit do PayLoad para indicar o fim do pacote.
+
+A Enoc é sugerida para ser expansível e reconfigurável, sendo que isso se dá através de sinais que o hub sem fio envia para informar sua presença e quando esse sinal é detectado, troca-se informações sobre seus PEs e essas informações são armazenadas dentro de cada hub, permitindo assim a expasividade sem necessidade de conhecimento prévio.
+
 
 \end{document}
