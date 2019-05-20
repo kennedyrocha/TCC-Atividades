@@ -12,7 +12,7 @@
 \setlength{\headsep}{1.0cm}
 \setlength{\textwidth}{15.5cm}
 \setlength{\textheight}{24.2cm}
-\renewcommand{\baselinestretch}{1.2}
+\renewcommand{\baselinestretch}{1.5}
 \renewcommand{\labelitemi}{\tiny{\textbullet}}
 \begin{document}
 
@@ -29,9 +29,9 @@ Para interligar essas duas camadas foi desenvolvido o reconciliador e o MII (Med
 Nesse âmbito, a 100 Gigabit, ou 100GE, é um conjunto de normas e tecnologias de rede para transmissão de dados numa velocidade de 100 Gb/s (IEEE Computer Society (2018)).
 
 
-Nesse padrão, inicialmente são determinadas as especificações da camada física (PHY - Physical Layer Device) para a transmissão desses dados, tal qual é dividida em subcamadas, são elas: Physical Coding Sublayer (PCS), Forward Error Correction (FEC), Physical Medium Attachment (PMA), Physical Medium Dependent (PMD) e o Medium.
+Nesse padrão, inicialmente são determinadas as especificações da camada física (PHY - Physical Layer Device) para a transmissão desses dados, tal qual é dividida em subcamadas, são elas: Physical Coding Sublayer (PCS), Forward Error Correction (FEC), Physical Medium Attachment (PMA), Physical Medium Dependent (PMD) e o Medium Dependent Interface (MDI).
 
-A primeira subcamada física (PCS) provê o serviço de codificação/decodificação dos dados em blocos de 66bit (64B/66B), é responsável por distribuir os dados em diferentes faixas, realizar o \textit{scramble} dos blocos de bits, compensação de diferença de taxas entre o reconciliador e o PMA, determinar quando uma conexão foi estabelecida informando então ao gerenciador quando o dispositivo está pronto para uso. 
+A primeira subcamada física (PCS) provê o serviço de codificação/decodificação dos dados em blocos de 66bit (64B/66B), é responsável por distribuir os dados em diferentes faixas, compensação de diferença de taxas entre o reconciliador e o PMA, determinar quando uma conexão foi estabelecida informando então ao gerenciador quando o dispositivo está pronto para uso. 
 
 
 Já na segunda subcamada física o FEC (Foward Error Correction) age com o objetivo de evitar a perda de dados através da redundância no envio de bits, onde ele faz a mesma adicionando bits ao streaming de dados pelo algorítimo Reed-Salomon, sendo então nomeado como RS-FEC (Reed Solomon Forward Error Correction). Em cada especificação o RS-FEC trabalha de uma forma e, em sua implementação na 100GE, é necessário exatamente quatro faixas de envio e outras quatro para recebimento, sendo indispensável o mapeamento 10:4 quando trabalha com o PMA possuindo 10 faixas, pois tal PMA opera com 10 faixas para envio e outras 10 para recebimento.
@@ -84,7 +84,7 @@ Depois de encapsulado, o frame é enviado e na recepção é considerado inváli
 
 O MAC Control com CSMA/CD não se faz necessário na 100GE pois essa funcionalidade usa o algoritimo CSMA/CD (Carrier Sense Multiple Access with Collision Detection). Tal algorimo não é util na 100GE visto que ela opera semente em modo \textit{full duplex}, logo não risco de colisão de dados.
 
-Ainda na camada de enlace, porém acima do MAC, tem-se o LLC (Logical Link Controller) que facilita, através de mecanismos de multiplexação e demultiplexação, o transito e coexistência de vários pacotes num meio de rede com vários pontos. Isso é possível pois ele guarda o endereço de cada MAC dentro da rede e faz todos se enxergarem como um, ou seja, enquanto o MAC guarda a informação dos dados e dispositivos para mostrar a origem e destino do pacote, o LLC mostra o melhor caminho a ser percorrido para esse pacote chegar ao objetivo.
+Ainda na camada de enlace, porém acima do MAC, tem-se o LLC (Logical Link Controller) que facilita, através de mecanismos de multiplexação e demultiplexação, o trânsito e coexistência de vários pacotes num meio de rede com vários pontos. Isso é possível pois ele guarda o endereço de cada MAC dentro da rede e faz todos se enxergarem como um, ou seja, enquanto o MAC guarda a informação dos dados e dispositivos para mostrar a origem e destino do pacote, o LLC mostra o melhor caminho a ser percorrido para esse pacote chegar ao objetivo.
 
 Esses conceitos tecnológicos (PHY, MAC e LLD) se referem as duas primeiras camadas físicas do modelo OSI e para interligar as duas o 802.3 também padroniza o reconciliador (RS). Opcionalmente o 802.3 também padroniza as MII (Media Independent Interface), que provê a interconexão lógica entre o MAC e o PHY, atuando então embaixo do RS. O MII foi desenvolvido para que a camada de enlace de dados e o meio físico trabalhem de forma independente e é especificado na 100GE como CGMII.
 
@@ -125,13 +125,15 @@ O conjunto de evolução de vários elementos como cabeamentos óticos (OM3, OM4
 
 Além da ethernet, há padrões de rede de alta performace como Enoc, Infiniband e Omni Path, que visam a transmissão de dados tanto para armazenamento quanto para processamento.
 
-A Enoc (Rede em Chip Expansível) é uma topologia de rede sugerida por Ivan Luiz Pedroso (2018), que permite comunicação de elementos de processamento de um chip, porém esse diálogo pode se dar tanto de elementos num chip (Intra-Chip) quanto com elementos em outro chip (Inter-Chip).
+A Rede em Chip Expansível (Enoc) é uma rede sugerida por Ivan Luiz Pedroso (2018) para interação de Sistemas num Chip (SoCs), que permite comunicação de elementos de processamento de um chip, porém esse diálogo pode se dar tanto de elementos num chip (Intra-Chip) quanto com elementos em outro chip (Inter-Chip).
 
-Na camada física, essa rede é composta por elementos de processamento(PE), Ligações metálicas, buffers e reteadores, todos eles dentro de um chip. Tais membros são dispostos numa malha bidimencional onde os PEs possuem buffers para armazenar suas mensagens e esses PEs são ligados a um roteador, ou seja, há um roteador para cada PE e os roteadores são também ligados a outros quatro roteadores a sua volta. Um desses roteadores é ligado a um hub sem fio e o mesmo faz comunicação com outro hub sem fio em outro chip.
+Na camada física, essa rede é composta por Elementos de Processamento (PE), Ligações metálicas, buffers e reteadores, todos eles dentro de um chip. Tais membros são dispostos numa malha bidimencional onde os PEs possuem buffers para armazenar suas mensagens e esses PEs são ligados a um roteador, ou seja, há um roteador para cada PE e os roteadores são também ligados a outros quatro roteadores a sua volta. Um desses roteadores é ligado a um hub sem fio e o mesmo faz comunicação com outro hub sem fio em outro chip.
 
-Na camada de enlace de dados, ela trabalha com roteadores, hubs e pacotes dividos em flits de 32 bits. Os pacotes são dividos e reconstruidos dentro dos PEs e enviados através dos roteadores, que possuem comunicação em bararmento full duplex. Quando o destinatário for outro chip, o flit é encaminhado ao hub sem fio através dos roteadores, que envia o mesmo para o hub do chip de destino. O pacote é divito em 4 bytes para endereço de destino e origem, 4 a 1500 bytes para os dados a serem transmitidos (PayLoad), por fim um flit repetindo o ultimo flit do PayLoad para indicar o fim do pacote.
+Na camada de enlace de dados, ela trabalha com roteadores, hubs e pacotes dividos em flits de 32 bits. Os pacotes são dividos e reconstruidos dentro dos PEs e enviados através dos roteadores, que possuem comunicação em bararmento full duplex. Quando o destinatário for outro chip, o flit é encaminhado ao hub sem fio através dos roteadores, que envia o mesmo para o hub do chip de destino. O pacote é dividido em 4 bytes para endereço de destino e origem, 4 a 1500 bytes para os dados a serem transmitidos (PayLoad), por fim um flit repetindo o ultimo flit do PayLoad para indicar o fim do pacote.
 
 A Enoc é sugerida para ser expansível e reconfigurável, sendo que isso se dá através de sinais que o hub sem fio envia para informar sua presença e quando esse sinal é detectado, troca-se informações sobre seus PEs e essas informações são armazenadas dentro de cada hub, permitindo assim a expasividade sem necessidade de conhecimento prévio.
 
+A InfiniBand (IB) é uma rede padronizada pela InfinBand Trade Association destinada para computação de alta performace, provendo um fácil meio para transporte de mensagens direto de uma aplicação a outra aplicação, storage ou sistema operacional. Enquanto a ethernet foca na transmissão de bits de dados numa rede, a IB visa criar um canal direto de comunicação, numa rede, entre elementos de uma aplicação sem necessidade de intervensao do sistema operacional.
 
+Na camada física, essa especificação é composta de Host Channel Adapter (HCA), 
 \end{document}
