@@ -135,7 +135,9 @@ A Enoc é sugerida para ser expansível e reconfigurável, sendo que isso se dá
 
 A InfiniBand (IB) é uma rede padronizada pela InfinBand Trade Association destinada para computação de alta performace, provendo um fácil meio para transporte de mensagens direto de uma aplicação a outra aplicação, storage ou sistema operacional. Enquanto a ethernet foca na transmissão de bits de dados numa rede, a IB visa criar um canal direto de comunicação, numa rede, entre elementos de uma aplicação sem necessidade de intervensao do sistema operacional.
 
-Na camada física, essa especificação é composta de Adaptador de Canal do Host (Host Channel Adapter (HCA)), Switches, Roteadores, Cabos e Conectores.
+Na camada física, essa especificação é composta de Adaptador de Canal do Host (Host Channel Adapter (HCA)), Adaptador de Canal Alvo (Target Channel Adapter (TCA)), Switches, Roteadores, Cabos e Conectores.
 
-O HCA fica num dispositivo ou computador e fornece controle e conexão para transmissão de dados com outros dispositivos, podendo ser esse segundo um HPC, TCA ou Switch.
+O HCA fica num dispositivo ou computador e fornece controle e conexão para transmissão de dados com outros dispositivos, podendo ser esse segundo um HPC, TCA ou Switch. Em outras palavras, o HCA é o dispositivo físico nas pontas para o canal virtual criado entre dois pontos. O TCA promove as mesmas funcionalidades do HCA, porem de maneira mais simples, pois é feito para dispositivos com subsistemas especializados. Tal dispositivo foi, em suma, substituido pelo HCA pois este atende todas as demandas do TCA.
+
+O switche é semelhante aos usados em outras redes, que é um disposivo para mutiplexação de pacotes, sendo diferenciado na maneira que é usado o mesmo na implementação da camada de enlace.
 \end{document}
