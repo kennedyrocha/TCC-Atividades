@@ -133,7 +133,7 @@ Na camada de enlace de dados, ela trabalha com roteadores, hubs e pacotes divido
 
 A Enoc é sugerida para ser expansível e reconfigurável, sendo que isso se dá através de sinais que o hub sem fio envia para informar sua presença e quando esse sinal é detectado, troca-se informações sobre seus PEs e essas informações são armazenadas dentro de cada hub, permitindo assim a expasividade sem necessidade de conhecimento prévio.
 
-A InfiniBand (IB) é uma rede padronizada pela InfinBand Trade Association destinada para computação de alta performace, provendo um fácil meio para transporte de mensagens direto de uma aplicação a outra aplicação, storage ou sistema operacional. Enquanto a ethernet foca na transmissão de bits de dados numa rede, a IB visa criar um canal direto de comunicação, numa rede, entre elementos de uma aplicação sem necessidade de intervensao do sistema operacional.
+A InfiniBand (IB) é uma rede padronizada pela InfinBand Trade Association destinada para computação de alta performace, provendo um fácil meio para transporte de mensagens direto de uma aplicação a outra aplicação, storage ou sistema operacional. Enquanto a ethernet foca na transmissão de bits de dados numa rede, a IB visa criar um canal direto de comunicação, numa rede, entre elementos de uma aplicação sem necessidade de intervensao do sistema operacional (Paul Grun - InfiniBand Trade Association (2010)).
 
 Na camada física, essa especificação é composta de Adaptador de Canal do Host (Host Channel Adapter (HCA)), Adaptador de Canal Alvo (Target Channel Adapter (TCA)), Switches, Roteadores, Cabos e Conectores.
 
@@ -141,7 +141,15 @@ O HCA fica num dispositivo ou computador e fornece controle e conexão para tran
 
 O switche é semelhante aos usados em outras redes, que é um disposivo para mutiplexação de pacotes, sendo diferenciado na maneira que é usado o mesmo na implementação da camada de enlace. Já os roteadores são utilizados na segmentaçõa de uma IB, ou seja, se há uma IB muito larga, ela pode ser divididas em subredes conectadas por roteadores IB.
 
+Ainda na camada física, há os cabos e conectores, sendo os conectores o meio ao qual um sinal ótico é enviado na origem ou recebido no dispositivo de destino, ou seja, facilitam a passagem de bits elétricos para o tipo de sinal do meio. Os cabos são o meio ao qual a informação trafega, podendo ser ele uma fibra ótica, um backplane ou cabo de cobre. Todos eles trabalhando no sistema de velocidade IB.
 
+A IB padroniza suas velocidades e faixas, trabalhando atualmente com 1, 4, 8 ou 12 faixas e velocidades de 2.5, 5, 10, 14.06 e 25.78 Gb/s. Tal combinação pode transmitir, por exemplo, 312 Gb/s se forem usados 12 faixas enviando 25.78 Gb/s.
+
+Na camada de enlace essa rede implementa a técnica Flow Control, que consiste numa coleção de providências tomadas que um receptor não seja sobrecarregado por um dispositivo que envia numa velocidade maior. Ela é feita através de uma confirmação que o receptor envia informando ao controlador que mais pacotes podem ser recebidos.
+
+Há vários formatos de pacotes na IB, e será descrito dois pela semplicidade de estrutura. O primeiro é o Pacote Local e é composto por 8 Bytes no cabeçalho, que contém informações como destino e origem, 0 a 4096 Bytes para PayLoad e 6 Bytes para cubrir os pacotes caso necessário. O outro tipo de pacote é o Global e sua diferença do pacote Local é o tamanho do cabeçalho, que é composto por 40 Bytes. O pacote Local é usado quando precisa-se transportar uma informação na mesma subnet e o Global de uma subnet a outra.
+
+Tal envio é realizada por nós entre dispositivos na rede, chamados de QR (Queue Pair). Os QRs são construídos em cima de canais virtuais traçados na rede, onde um tradutor de endereço - implementado na camada de transporte - traduz o endereço virtual para o caminho físico. Ne camada de transporte, a IB oferece um tradutor de endereço virtuais para físicos e também implementações de mensagens/protocolos para que a comicação com dispositivos e storages se de forma direta e/ou facilitada.
 
 
 \end{document}
