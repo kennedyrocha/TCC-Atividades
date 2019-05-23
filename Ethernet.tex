@@ -20,6 +20,7 @@
 \textbf{{\LARGE 100 GigaBit Ethernet}} \\ \vspace{0.5cm}
 \end{center}
 
+\section{Ethernet}
 A Ethernet é um conjunto de normas e padrões de rede que define regras numa LAN (Local Internet Network) para a transmissão de dados, implementando o algorítmo CSMA/CD (Carrier Sense Multiple Access with Collision Detection) para acesso a dados com detecção de colisão e o MAC (Medium Access control) para controle de acesso ao meio.
 
 Esse protocolo é atualmente padronizado pelo IEEE 802.3, um grupo de estudo pertencente ao IEEE (Institute of Eletrical and Electronics Engineers), cuja a responsabilidade é estudar e padronizar esse modelo de rede, tal qual atua na camada física e de enlace de dados no modelo OSI (Open Systems Interconnection). Os padrões são especificados por velocidade, ou seja, para cada velocidade há uma normalização.
@@ -28,12 +29,14 @@ Já na camada de enlace, é usado um controlador de link lógico para destinar o
 Para interligar essas duas camadas foi desenvolvido o reconciliador e o MII (Media Independent Interface).
 Nesse âmbito, a 100 Gigabit, ou 100GE, é um conjunto de normas e tecnologias de rede para transmissão de dados numa velocidade de 100 Gb/s (IEEE Computer Society (2018)).
 
-
+\subsection{Camada física}
 Nesse padrão, inicialmente são determinadas as especificações da camada física (PHY - Physical Layer Device) para a transmissão desses dados, tal qual é dividida em subcamadas, são elas: Physical Coding Sublayer (PCS), Forward Error Correction (FEC), Physical Medium Attachment (PMA), Physical Medium Dependent (PMD) e o Medium Dependent Interface (MDI).
 
+\subsubsection{Physical Coding Sublayer}
 A primeira subcamada física (PCS) provê o serviço de codificação/decodificação dos dados em blocos de 66bit (64B/66B), é responsável por distribuir os dados em diferentes faixas, compensação de diferença de taxas entre o reconciliador e o PMA, determinar quando uma conexão foi estabelecida informando então ao gerenciador quando o dispositivo está pronto para uso. 
 
 
+\subsubsection{Foward Error Correction}
 Já na segunda subcamada física o FEC (Foward Error Correction) age com o objetivo de evitar a perda de dados através da redundância no envio de bits, onde ele faz a mesma adicionando bits ao streaming de dados pelo algorítimo Reed-Salomon, sendo então nomeado como RS-FEC (Reed Solomon Forward Error Correction). Em cada especificação o RS-FEC trabalha de uma forma e, em sua implementação na 100GE, é necessário exatamente quatro faixas de envio e outras quatro para recebimento, sendo indispensável o mapeamento 10:4 quando trabalha com o PMA possuindo 10 faixas, pois tal PMA opera com 10 faixas para envio e outras 10 para recebimento.
 
 A terceira subcamada, o PMA (Physical Meidium Attachment), fornece o serviço de intermediação entre um PMA e um cliente, podendo esse cliente ser um PCS, FEC ou outro próprio PMA. Entre esses serviços têm-se a adaptação dos sinais das faixas dos PCS para o número de faixas físicas ou abstratas do cliente, ou seja, ele pode receber 10 faixas de stream de dados e transformá-lá em 4 faixas de stream de dados. Também provê especificações de tempo para transmissão dos dados entre as faixas assim como gerenciamento dos mesmos. O PMA faz o direcionamento de bits de dados para que todos os bits de uma stream vão e voltem pela mesma faixa. Ainda na terceira camada, quando há a comunicação entre dois PMAs, pode-se usar a instanciação CAUI-10 (100 Gb/s ten-lane Attachment Unit Interface) ou CAUI-4(Chip-to-chip/Chip-to-module 100 Gb/s four-lane Attachment Unit Interface), onde a CAUI-10 é a especificação elétrica de módulos plugáveis com dez faixas a 10.3125 GBd e a CAUI-4 é a especificação elétrica, de módulos plugáveis e pontos combinados, com quatro faixas a 25.78125 GBd.
@@ -125,6 +128,7 @@ O conjunto de evolução de vários elementos como cabeamentos óticos (OM3, OM4
 
 Além da ethernet, há padrões de rede de alta performace como Enoc, Infiniband e Omni Path, que visam a transmissão de dados tanto para armazenamento quanto para processamento.
 
+\section{Enoc}
 A Rede em Chip Expansível (Enoc) é uma rede sugerida por Ivan Luiz Pedroso (2018) para interação de Sistemas num Chip (SoCs), que permite comunicação de elementos de processamento de um chip, porém esse diálogo pode se dar tanto de elementos num chip (Intra-Chip) quanto com elementos em outro chip (Inter-Chip).
 
 Na camada física, essa rede é composta por Elementos de Processamento (PE), Ligações metálicas, buffers e reteadores, todos eles dentro de um chip. Tais membros são dispostos numa malha bidimencional onde os PEs possuem buffers para armazenar suas mensagens e esses PEs são ligados a um roteador, ou seja, há um roteador para cada PE e os roteadores são também ligados a outros quatro roteadores a sua volta. Um desses roteadores é ligado a um hub sem fio e o mesmo faz comunicação com outro hub sem fio em outro chip.
