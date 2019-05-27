@@ -1,0 +1,14 @@
+Será realizado uma pesquisa de caráter exploratório em bibliografias e estudos do assunto para se familiarizar e trazer uma análise mais alicerçada dos dados coletados durante o desenvolvimento. 
+Após isso, será realizado simulações para verificar elementos como desempenho, gasto de energia, custo de área e tráfego de comunicação pois a simulação é uma forma eficaz de se mensurar arquiteturas e organizações de interconexões. 
+
+Como simulador, foi escolhido o Noxim pois o mesmo é amplamente utilizado no meio de pesquisa, sendo ele um simulador de redes em chip desenvolvido na Universidade de Catania (Itália), escrito usando SystemC,  
+é desenvolvido em linguagem c++ e está disponível em repositórios online (https://github.com/davidepatti/noxim). Este simulador foi utilizado pelo criador da ENoC e com o objetivo de se aproximar ambiente em que a 
+mesma foi principiada, será usado tal simulador. Tal simulador foi usufruído também em:
+
+Kurimoto, Y., Fukutsuka, Y., Taniguchi, I. e Tomiyama, H. (2013). A hardware-software
+cosimulator for Network-on-Chip. Em International SoC Design Conference, páginas 172–
+175.
+
+https://dl.acm.org/citation.cfm?id=2953878
+
+yen phing, ng & Mohd Warip, Mohd Nazri Bin & Ehkan, Phaklen & Zulkefli, Farah & Ahmad, R.Badlishah. (2018). Performance Analysis of the Impact of Design Parameters to Network-on-Chip (NoC) Architecture. 237-246. 10.1007/978-3-319-59427-9_26. 
