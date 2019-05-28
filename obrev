@@ -1,0 +1,34 @@
+100GBASE-R		Codificação para algoritimo 64b/66b
+100GE			Ethernet 100 Gigabit
+10GE			Ethernet 10 Gigabit
+25GE			Ethernet 25 Gigabit
+400GE			Ethernet 400 Gigabit
+802.3			Grupo de trabalho, pertencente ao IEEE, resposável pela padronização da Ethernet
+CSMA/CD			Carrier Sense Multiple Access with Collision Detection
+DVD				Digital Optical Disc
+ENoC			Expansible Network on a Chip
+FEC				Forward Error Correction
+HCA				Host Channel Adapter
+IB				InfiniBand
+IEEE			Institute of Eletrical and Eletronics Engineers
+LAN				Local Area Network
+LLC				Logical Link Control
+MAC				Medium Access Control
+MDI				Medium Dependent Interface
+MII				Media Independent Interface
+OM3				Fibra Ótica com largura de 1500 MHz
+OM4				Fibra Ótica com largura de 3500 MHz
+OM5				Fibra Ótica com largura de 1500 MHz
+OSI				Open Systems Interconnection
+PCS				Physical Coding Sublayer
+PE				Elementos de Processamento
+PHY				Physical Layer Device
+PLS				Physical Signaling Sublayer
+PMA				Physical Medium Attachment
+PMD				Physical Medium Dependent
+QR				Queue Pair
+RS				Reconciliation Sublayer
+RS-FEC			Reed-Solomon Forward Error Correction
+SFD				Start Frame Delimiter
+SoC				System on a Chip
+TCA				Target Channel Adapter
