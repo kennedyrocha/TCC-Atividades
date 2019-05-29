@@ -1,0 +1,10 @@
+revisar a literatura em busca de fundamentação da 100ge
+estudar a enoc para entender a arquitetura e funcionamento
+adpatar a enoc inserindo a 100ge como sistema de interconexão
+definir metricas e parametros;
+definir carga de trabalho
+definir cenário de simnulação
+definir sistemas de interconexão como base de comparação
+realizar simnulação da enoc com a ethernet 100ge e mais sistemas de interconexão
+realizar analise do desempenho a partir dos resultados obtidos
+concluir a pesquisa e publicar o resultados

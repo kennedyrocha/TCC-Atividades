@@ -1,0 +1,41 @@
+Justificativa:
+o ambiente de clasters em hack demanda alto poder computacional e a enoc é capaz de expandir esses recursos computacionais de forma escalável
+porém o gargálo ainda é o sistema de interconexão
+
+Ao considerar a HPC a demanda de computação é crescente tão quanto possível, dessa forma prover uma alternativa que mitigue o gargálo de interconexão
+vai ao encontro do objetivo da enoc em atender essa demanda. No entanto atualmente a enoc é limitada a uma taxa de transmissão de 25gb/s, porém com 
+baixa sobrecarga de comunicação.
+
+
+
+hipótese:
+Esse trabalho parte do pressuposto de que é possível utilizar o padrão da 100ge na enoc voltada a ambientes de servidores de hack, em específico para
+hpc e cluster. No entanto uma das principais caracteristicas da enoc é o protocolo com baixa sobrecarga, diferente da ethernet que possue (uma sobrecarga de
+maior protocolo) devido aos requisitos de sua arquitetura. Considerar a 100ge obtem-se um onus de taxa de transmissão maior, porem com taxa de transferência maior e,
+justamente isso que essa pesquisa visa comparar, se usar um novo sistemas de comunicação ..........
+e isso que pressupoe-se, mesmo com maior overhead, tera um melhor desempenho devido a maior taxa de transmissão.
+
+Executar a simulação da arquitetura ENoC com a IB --- como base de comparação---- como meio de +comunicação;
+
+
+Analisar -- estudar -- sistemas de interconexão para comunicação Inter-Chip;
+
+estudar 100ge
+adptar a enoc para suportar a 100ge
+simular o desempenho da 100ge na enoc
+comparar com demais sistemas de interconexão, incluindo a enoc e ib
+analisar os resultados obtidos e a viabilidade da 100ge na anoc
+publicar os resultados
+
+
+
+tirar energia do metodologia
+criador por avaliar
+
+
+corrigir imagens para vetorial
+
+Expansible network on a chip (inicial maiusculo)
+corrigir sigla enoc
+
+citar aquivo do whatsapp
