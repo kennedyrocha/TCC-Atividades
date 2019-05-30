@@ -1,0 +1,12 @@
+Os SoC são utilizados largamente na computação cotidiana desde os modems,
+telefones, reprodutores de DVD, televisões e telefones a supercomputadores,
+servidores e data center. Tal sistema é composto de processadores,
+microcontroladores, buffers, dispositivos de entrada e saída de dados entre outras
+coisas (Greaves, 2011). Eles são amplamente implementados em ambiente
+de clusters em racks, contrubuindo para o processamento em sistemas distribuidos,
+computação paralela e computação de alto desempenho. Nos clusters em racks, esses
+SoCs são acoplados de tal maneira que várias máquinas trabalham em conjunto para
+resolver e/ou processar algo. No entanto, a demanda computacional aumenta exponêncialmente
+através dos anos e soluções são criadas quase que concomitantemente. Nesse âmbito
+têm-se a NoC, que é rede em chip que possíbilita esse complexo de dispostivos
+a executar tarefas em grupo, auxiliando na comunicação dos mesmos.
